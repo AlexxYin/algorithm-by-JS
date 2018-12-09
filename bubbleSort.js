@@ -2,7 +2,7 @@
 * @Author: Yin
 * @Date:   2018-12-09 20:15:31
 * @Last Modified by:   Yin
-* @Last Modified time: 2018-12-09 20:35:34
+* @Last Modified time: 2018-12-09 22:04:57
 */
 function bubbleSort(arr){
 	var num=0;
@@ -10,8 +10,8 @@ function bubbleSort(arr){
 		return arr;
 	}
 	else{
-		for(var i=0;i<arr.length-1;i++){ //第一个i作用为循环次数
-			for(var j=0;j<arr.length-i-1;j++){//第二个j作用是比较两个数大小
+		for(var i=0;i<arr.length-1;i++){ //第一个i作用为循环次数.
+			for(var j=0;j<arr.length-i-1;j++){//第二个j作用是比较两个数大小.
 				if(arr[j+1]<arr[j]){
 					num=arr[j];
 					arr[j]=arr[j+1];
