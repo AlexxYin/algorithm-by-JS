@@ -2,7 +2,7 @@
 * @Author: Yin
 * @Date:   2018-12-09 20:38:28
 * @Last Modified by:   Yin
-* @Last Modified time: 2018-12-09 21:34:53
+* @Last Modified time: 2018-12-09 22:05:39
 */
 function binSort(arr,count){
 	if(arr.length<=1){
@@ -36,7 +36,7 @@ function binSort(arr,count){
 		while(n<count){
 			result=result.concat(buckets[n]);
 			n++;
-		}
+		}//整合
 	}
 	return result;
 }
