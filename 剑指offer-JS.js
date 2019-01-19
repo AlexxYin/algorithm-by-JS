@@ -26,3 +26,25 @@ function replaceSpace(str)
     return str.replace(/\s/g,"%20");
 }
 
+
+
+/*从头到尾打印列表
+题目描述
+输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。*/
+
+/*function ListNode(x){
+    this.val = x;
+    this.next = null;
+}*/
+function printListFromTailToHead(head)
+{
+    // write code here
+    var arr=[];
+    while(head){
+        arr.unshift(head.val);
+        head=head.next;
+    }
+    return arr;
+}
+
+
