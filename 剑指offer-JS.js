@@ -348,3 +348,33 @@ function IsPopOrder(pushV, popV)
   return stack.length == 0;
 }
 
+
+/*数组中出现次数超过一半的数字
+题目描述
+数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
+例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，
+超过数组长度的一半，因此输出2。如果不存在则输出0。*/
+
+function MoreThanHalfNum_Solution(numbers)
+{
+    // write code here
+        var arr = [],
+        len = numbers.length,
+        a;
+    for(var i = 0; i < len; i++){
+        a = numbers[i];
+        if(arr[a]){
+            arr[a]++;
+        }else{
+            arr[a] = 1;
+        }
+    }
+     
+    for(var i = 0; i < arr.length; i++){
+        if(arr[i] > len/2){
+            return i;
+        }
+    }
+    return 0;
+}
+
