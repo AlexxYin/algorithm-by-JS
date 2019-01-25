@@ -416,3 +416,19 @@ function FirstNotRepeatingChar(str)
     }
     return -1;
 }
+
+/*数字在排序数组中出现的次数
+题目描述
+统计一个数字在排序数组中出现的次数。*/
+function GetNumberOfK(data, k)
+{
+    // write code here
+       var count =0;
+    for(var i =0 ;i<data.length;i++){
+        if(data[i]==k){
+            count++;
+        }
+    }
+    return count;
+}
+
