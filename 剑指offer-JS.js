@@ -448,3 +448,40 @@ function FindNumsAppearOnce(array)
     return arr;
 }
 
+
+
+/*和为S的两个数字
+题目描述
+输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。
+输出描述:
+对应每个测试案例，输出两个数，小的先输出。*/
+
+function FindNumbersWithSum(array, sum)
+{
+    // write code here      
+    var idx,
+        result = [],
+        min;
+      for (var i = 0; i<array.length-1&&array[i]<sum/2; i++) {
+        idx = array.indexOf(sum - array[i], i + 1);
+        if (idx != -1) {
+            return [array[i], array[idx]];
+        }
+      }
+      return result;
+}
+
+/*左旋转字符串
+题目描述
+汇编语言中有一种移位指令叫做循环左移（ROL），现在有个简单的任务，就是用字符串模拟这个指令的运算结果。对于一个给定的字符序列S，
+请你把其循环左移K位后的序列输出。例如，字符序列S=”abcXYZdef”,要求输出循环左移3位后的结果，即“XYZdefabc”。是不是很简单？OK，搞定它！*/
+
+function LeftRotateString(str, n)
+{
+    // write code here
+        if(str==null||str.length==0){
+        return "";
+    }
+    n=n%str.length;
+    return str.slice(n)+str.slice(0,n);
+}
