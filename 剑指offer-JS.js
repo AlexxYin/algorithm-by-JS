@@ -672,3 +672,62 @@ function min()
 }
 
 
+/*从上往下打印二叉树
+题目描述
+从上往下打印出二叉树的每个节点，同层节点从左至右打印。*/
+
+/* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+function PrintFromTopToBottom(root)
+{
+    // write code here
+    var arr=[];
+    var data=[];
+    if(root!=null){
+        arr.push(root);
+    }
+    while(arr.length!=0){
+        var node=arr.shift();
+        if(node.left!=null){
+            arr.push(node.left);
+        }
+        if(node.right!=null){
+            arr.push(node.right);
+        }
+        data.push(node.val);
+    }
+    return data;
+}
+
+
+
+/*二叉搜索树的后序遍历序列
+题目描述
+输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。*/
+
+function VerifySquenceOfBST(sequence) {
+    if(!sequence.length) {
+        return false;
+    }
+    return adjustSquence(sequence,0,sequence.length-1);
+ 
+}
+ 
+function adjustSquence(sequence,start,end) {
+    if(start >= end) {
+        return true;
+    }
+    var i = start;
+    while(i < end && sequence[i] < sequence[end]) {
+        i++;
+    }
+    for(var j = i; j < end; j++){
+        if(sequence[j] < sequence[end]) {
+            return false;
+        }
+    }
+    return adjustSquence(sequence,start,i-1) && adjustSquence(sequence,i,end-1)
+}
