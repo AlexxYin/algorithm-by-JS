@@ -200,10 +200,37 @@ function NumberOf1(n)
 题目描述
 给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方*/
 
-function Power(base, exponent)
+/*1.*/function Power(base, exponent)
 {
     // write code here
     return Math.pow(base,exponent);
+}
+
+/*2.*/function Power(x,n){
+    if(n < 0) {
+        if(x <= 0) {
+            throw new Error("分母不能小于等于0");
+        }else {
+            if(-n % 2 == 1) {
+                return 1/(Power(x,-n-1) * x);
+            }else {
+                var r = 1/Power(x,-n/2);
+            return r * r;
+            }
+        }
+    }
+    if(n == 0) {
+        return 1;
+    }
+    else {
+        if(n % 2 == 1) {
+            return Power(x,n-1) * x;
+        }else {
+            var r = Power(x,n/2);
+            return r * r;
+        }
+    }
+    
 }
 
 
@@ -333,6 +360,29 @@ function PrintMinNumber(numbers)
 例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。
 （注意：这两个序列的长度是相等的）*/
 
+【/*思路】借用一个辅助的栈，遍历压栈顺序，先讲第一个放入栈中，这里是1，然后判断栈顶元素是不是出栈顺序的第一个元素，这里是4，很显然1≠4，所以我们继续压栈，直到相等以后开始出栈，出栈一个元素，则将出栈顺序向后移动一位，直到不相等，这样循环等压栈顺序遍历完成，如果辅助栈还不为空，说明弹出序列不是该栈的弹出顺序。
+
+举例：
+
+入栈1,2,3,4,5
+
+出栈4,5,3,2,1
+
+首先1入辅助栈，此时栈顶1≠4，继续入栈2
+
+此时栈顶2≠4，继续入栈3
+
+此时栈顶3≠4，继续入栈4
+
+此时栈顶4＝4，出栈4，弹出序列向后一位，此时为5，,辅助栈里面是1,2,3
+
+此时栈顶3≠5，继续入栈5
+
+此时栈顶5=5，出栈5,弹出序列向后一位，此时为3，,辅助栈里面是1,2,3
+
+….
+
+依次执行，最后辅助栈为空。如果不为空说明弹出序列不是该栈的弹出顺序。*/
 function IsPopOrder(pushV, popV)
 {
     // write code here
@@ -771,4 +821,114 @@ function dfsFind(root, expectNumber, path, currentSum, result) {
     }
   
     path.pop();
+}
+
+
+/*二叉搜索树与双向链表
+题目描述
+输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。*/
+
+/* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+function Convert(pRootOfTree)
+{
+    // write code here
+    if(!pRootOfTree)
+        return null;
+    var stack = [];
+    var p = pRootOfTree;
+    var pre;
+    var isFirst = true;
+    while (p!=null || stack.length>0){
+        while (p){
+            stack.push(p);
+            p = p.left;
+        }
+        p = stack.pop();
+        if(isFirst){
+            root = p;
+            pre = root;
+            isFirst = false;
+        }else{
+            pre.right = p;
+            p.left = pre;
+            pre = p;
+        }
+        p = p.right;
+    }
+    return root;
+}
+
+/*复杂链表的复制
+题目描述
+输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），
+返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空）*/
+
+/*function RandomListNode(x){
+    this.label = x;
+    this.next = null;
+    this.random = null;
+}*/
+function Clone(pHead)
+{
+    // write code here
+    if (!pHead) {
+        return null;
+    }
+    var newHead = new RandomListNode(pHead.label);
+    newHead.random = pHead.random;
+    newHead.next = Clone(pHead.next);
+    return newHead;
+}
+
+/*字符串的排列
+题目描述
+输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+输入描述:
+输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。*/
+
+function Permutation(str)
+{
+    // write code here
+    var strArr = str.split("").sort();  //字母先进行排序
+    var result = [];
+    for(var i = 0; i < strArr.length; i++){
+        //当相邻元素相同时，则跳过此次循环
+        if((i > 0) && (strArr[i] == strArr[i - 1])) continue;
+        //截取前面部分
+        var front  = strArr.slice(0, i);
+        //截取后面部分
+        var end = strArr.slice(i + 1);
+        excuteFind(result, strArr[i], front.concat(end));
+    }
+    return result;
+}
+  
+function excuteFind(result, mid, strArr){
+    if(strArr.length == 0) {
+        result.push(mid);
+    }else{
+        for(var i = 0; i < strArr.length; i++){
+            if((i > 0) && (strArr[i] == strArr[i - 1])) continue;
+            var front = strArr.slice(0, i);
+            var end = strArr.slice(i + 1);
+            excuteFind(result, mid + strArr[i], front.concat(end));
+        }
+    }
+}
+
+
+/*求1+2+3+...+n
+题目描述
+求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。*/
+
+function Sum_Solution(n)
+{
+    // write code here
+    var res = n;
+    (n>0)&&(res += Sum_Solution(n-1));
+    return res;
 }
