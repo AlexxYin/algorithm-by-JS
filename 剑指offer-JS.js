@@ -997,3 +997,83 @@ function NumberOf1Between1AndN_Solution(n)
     }
     return counts;
 }
+
+/*数组中的逆序对
+题目描述
+在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组,求出这个数组中的逆序对的总数P。
+并将P对1000000007取模的结果输出。 即输出P%1000000007
+输入描述:
+题目保证输入的数组中没有的相同的数字
+
+数据范围：
+
+	对于%50的数据,size<=10^4
+
+	对于%75的数据,size<=10^5
+
+	对于%100的数据,size<=2*10^5
+
+示例1
+输入
+1,2,3,4,5,6,7,0
+输出
+7*/
+
+function InversePairs(data) {
+    if (!data || data.length < 2) return 0;
+  
+    var copy = data.slice(),
+        count = 0;
+    count = mergeSort(data, copy, 0, data.length - 1);
+    return count % 1000000007;
+}
+  
+function mergeSort(data, copy, start, end) {
+    if (end === start) return 0;
+    var mid = (end - start) >> 1,
+        left = mergeSort(copy, data, start, start + mid),
+        right = mergeSort(copy, data, start + mid + 1, end),
+        count = 0,
+        p = start + mid,//前一个数组的最后一个下标
+        q = end,//后一个数组的下标
+        copyIndex = end;//辅助数组下标，从最后一个算起
+  
+    while (p >= start && q >= start + mid + 1) {
+        if (data[p] > data[q]) {
+            count += q - start - mid;
+            copy[copyIndex--] = data[p--];
+        } else {
+            copy[copyIndex--] = data[q--];
+        }
+    }
+  
+    while (p >= start) {
+        copy[copyIndex--] = data[p--];
+    }
+  
+    while (q >= start + mid + 1) {
+        copy[copyIndex--] = data[q--];
+    }
+    return left + right + count;
+}
+
+
+/*两个链表的第一个公共结点
+题目描述
+输入两个链表，找出它们的第一个公共结点。*/
+
+/*function ListNode(x){
+    this.val = x;
+    this.next = null;
+}*/
+function FindFirstCommonNode(pHead1, pHead2)
+{
+    // write code here
+        var p1=pHead1;
+    var p2=pHead2;
+    while(p1!=p2){
+        p1=p1==null?pHead2:p1.next;
+        p2=p2==null?pHead1:p2.next;
+    }
+    return p1;
+}
